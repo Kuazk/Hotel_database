@@ -1,6 +1,6 @@
 
 DROP TABLE Floor;
-CREATE TABLE hoteldb.Floor (
+CREATE TABLE Floor (
 	Floor_number INT,
     Ameneties VARCHAR(100),
     PRIMARY KEY (Floor_number)
@@ -30,8 +30,39 @@ CREATE TABLE Employee (
     PRIMARY KEY (Employee_id)
 );
 
+DROP TABLE ROOM_SERVICE_STAFF;
+CREATE TABLE ROOM_SERVICE_STAFF(
+  Employee_id INT AUTO_INCREMENT,
+  Assigned_room INT,
+  Request_details VARCHAR(300),
+
+  PRIMARY KEY (Employee_id),
+  FOREIGN KEY (Assigned_room,Employee_id)
+);
+
+DROP TABLE HOUSEKEEPING_STAFF;
+CREATE TABLE HOUSEKEEPING_STAFF (
+  Employee_id INT AUTO_INCREMENT,
+  Current_floor INT,
+  Requested_room INT,
+
+  PRIMARY KEY (Employee_id),
+  FOREIGN KEY (Requested_room,Employee_id)
+);
+
+DROP TABLE MANAGER;
+CREATE TABLE MANAGER (
+  Employee_id INT AUTO_INCREMENT,
+  Managed_floors SET(1,2,3,4,5,6,7,8,9,10,11),
+  Managed_employees VARCHAR(300)
+
+  PRIMARY KEY (Employee_id),
+  FOREIGN KEY (Employee_id)
+);
+
+
 DROP TABLE Guest;    
-CREATE TABLE Employee (
+CREATE TABLE Guest (
 	Guest_id INT AUTO_INCREMENT,
     Name VARCHAR(40),
     Room_number INT,
@@ -70,7 +101,39 @@ CREATE TABLE Reservations (
 		REFERENCES Guest (Guest_id)
 );
 
-SELECT * from hoteldb.Floor;
+DROP TABLE ARE_SERVED_BY;
+CREATE TABLE ARE_SERVED_BY (
+  Employee_id INT AUTO_INCREMENT,
+  Room_number INT,
+
+  PRIMARY KEY (Employee_id,Room_number),
+  FOREIGN KEY (Employee_id,Room_number)
+);
+
+CREATE TABLE UPKEEPS(
+  Employee_id INT AUTO_INCREMENT,
+  Floor_number INT,
+
+  PRIMARY KEY (Employee_id,Floor_number)
+  FOREIGN KEY (Employee_id,Floor_number)
+)
+
+CREATE TABLE BOOKING(
+  Guest_id INT AUTO_INCREMENT,
+  Room_number INT,
+  Booking_id INT,
+
+  PRIMARY KEY (Guest_id,Room_number,Booking_id),
+  FOREIGN KEY (Guest_id,Room_number,Booking_id)
+)
+
+CREATE TABLE ARE_MANAGED_BY(
+  Employee_id INT AUTO_INCREMENT,
+  Floor_number INT,
+
+  PRIMARY KEY (Employee_id, Floor_number)
+  FOREIGN KEY (Employee_id,Floor_number)
+)
 
 
  
