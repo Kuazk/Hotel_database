@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS hoteldb;
+DROP DATABASE hoteldb;
 
 CREATE DATABASE hoteldb;
 USE hoteldb;
@@ -8,7 +8,8 @@ CREATE TABLE Floor (
     Ameneties VARCHAR(100),
     PRIMARY KEY (Floor_number)
 );
-    
+
+
 CREATE TABLE Room (
 	Room_number INT,
     Room_type ENUM("King", "Queen", "Twin", "Standard Suite", "Presidential Suite"),
@@ -19,12 +20,12 @@ CREATE TABLE Room (
     FOREIGN KEY (Floor_number)
 	  REFERENCES Floor (Floor_number)
 );
-   
+
 CREATE TABLE Employee (
 	Employee_id INT AUTO_INCREMENT,
     Name VARCHAR(40),
     Gender VARCHAR(10),
-    Phone_number INT,
+    Phone_number VARCHAR(20),
     Date_of_birth DATE,
     Email VARCHAR(40),
     Address VARCHAR(40),
@@ -56,10 +57,9 @@ CREATE TABLE HOUSEKEEPING_STAFF (
 );
 
 CREATE TABLE MANAGER (
-  Manager_id INT AUTO_INCREMENT,
+  Manager_id INT ,
   Employee_id INT,
-
-  PRIMARY KEY (Manager_id),
+  PRIMARY KEY (Employee_id),
   FOREIGN KEY (Employee_id)
     REFERENCES EMPLOYEE (Employee_id)
 
@@ -106,7 +106,7 @@ CREATE TABLE ARE_SERVED_BY (
   Employee_id INT,
   Room_number INT,
 
-  PRIMARY KEY (Employee_id,Room_number),
+  
   FOREIGN KEY (Room_number)
     REFERENCES ROOM (Room_number),
   FOREIGN KEY (Employee_id)
@@ -117,7 +117,7 @@ CREATE TABLE UPKEEPS(
   Employee_id INT,
   Floor_number INT,
 
-  PRIMARY KEY (Employee_id,Floor_number),
+  
   FOREIGN KEY (Floor_number)
     REFERENCES FLOOR (Floor_number),
   FOREIGN KEY (Employee_id)
@@ -129,7 +129,7 @@ CREATE TABLE BOOKING(
   Room_number INT,
   Booking_id INT,
 
-  PRIMARY KEY (Guest_id,Room_number,Booking_id),
+  PRIMARY KEY (Booking_id),
   FOREIGN KEY (Room_number)
     REFERENCES ROOM (Room_number),
   FOREIGN KEY (Guest_id)
@@ -142,9 +142,9 @@ CREATE TABLE ARE_MANAGED_BY(
   Employee_id INT,
   Floor_number INT,
 
-  PRIMARY KEY (Employee_id, Floor_number),
+  PRIMARY KEY (Floor_number),
   FOREIGN KEY (Floor_number)
     REFERENCES FLOOR (Floor_number),
   FOREIGN KEY (Employee_id)
-    REFERENCES Employee (Employee_id)
+    REFERENCES EMPLOYEE (Employee_id)
 );
