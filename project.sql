@@ -72,10 +72,8 @@ CREATE TABLE Guest (
     Date_of_birth DATE,
     Email VARCHAR(40),
     Address VARCHAR(40),
-    Room_number INT,
     PRIMARY KEY (Guest_id),
-    FOREIGN KEY (Room_number)
-	    REFERENCES Room (Room_number)
+    
 );
    
 CREATE TABLE Requests (
