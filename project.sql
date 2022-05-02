@@ -58,11 +58,8 @@ CREATE TABLE HOUSEKEEPING_STAFF (
 
 CREATE TABLE MANAGER (
   Manager_id INT ,
-  Employee_id INT,
-  PRIMARY KEY (Employee_id),
-  FOREIGN KEY (Employee_id)
-    REFERENCES EMPLOYEE (Employee_id)
-
+  Managed_Employees_Number INT,
+  PRIMARY KEY (Manager_id)
 );
 
   
@@ -72,8 +69,10 @@ CREATE TABLE Guest (
     Date_of_birth DATE,
     Email VARCHAR(40),
     Address VARCHAR(40),
+    Room_number INT,
     PRIMARY KEY (Guest_id),
-    
+    FOREIGN KEY (Room_number)
+	    REFERENCES Room (Room_number)
 );
    
 CREATE TABLE Requests (
@@ -94,10 +93,7 @@ CREATE TABLE Reservations (
 	Booking_id INT AUTO_INCREMENT,
     Check_in DATE,
     Check_out  DATE,
-    Guest_id INT,
-    PRIMARY KEY (Booking_id),
-    FOREIGN KEY (Guest_id)
-		REFERENCES Guest (Guest_id)
+    PRIMARY KEY (Booking_id)
 );
 
 CREATE TABLE ARE_SERVED_BY (
