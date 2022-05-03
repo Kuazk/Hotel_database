@@ -57,9 +57,11 @@ CREATE TABLE HOUSEKEEPING_STAFF (
 );
 
 CREATE TABLE MANAGER (
-  Manager_id INT ,
-  Managed_Employees_Number INT,
-  PRIMARY KEY (Manager_id)
+  Employee_id INT ,
+  Managed_Employees INT,
+  PRIMARY KEY (Employee_id),
+  FOREIGN KEY (Employee_id)
+	REFERENCES EMPLOYEE (Employee_id)
 );
 
   
@@ -100,7 +102,7 @@ CREATE TABLE ARE_SERVED_BY (
   Employee_id INT,
   Room_number INT,
 
-  
+  PRIMARY KEY (Employee_id, Room_number),
   FOREIGN KEY (Room_number)
     REFERENCES ROOM (Room_number),
   FOREIGN KEY (Employee_id)
@@ -111,7 +113,7 @@ CREATE TABLE UPKEEPS(
   Employee_id INT,
   Floor_number INT,
 
-  
+  PRIMARY KEY (Employee_id, Floor_number),
   FOREIGN KEY (Floor_number)
     REFERENCES FLOOR (Floor_number),
   FOREIGN KEY (Employee_id)
@@ -123,7 +125,7 @@ CREATE TABLE BOOKING(
   Room_number INT,
   Booking_id INT,
 
-  PRIMARY KEY (Booking_id),
+  PRIMARY KEY (Guest_id, Room_number, Booking_id),
   FOREIGN KEY (Room_number)
     REFERENCES ROOM (Room_number),
   FOREIGN KEY (Guest_id)
@@ -136,7 +138,7 @@ CREATE TABLE ARE_MANAGED_BY(
   Employee_id INT,
   Floor_number INT,
 
-  PRIMARY KEY (Floor_number),
+  PRIMARY KEY (Employee_id, Floor_number),
   FOREIGN KEY (Floor_number)
     REFERENCES FLOOR (Floor_number),
   FOREIGN KEY (Employee_id)
